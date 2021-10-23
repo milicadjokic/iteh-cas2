@@ -26,6 +26,41 @@ class Prijava{
         return $conn->query($query);
      }
 
+     public static function getById($id,mysqli $conn) {
+
+        $query = "SELECT * FROM prijave WHERE id=$id";
+        $myArray = array();
+        $rezultat = $conn->query($query);
+        
+        if($rezultat) {
+            while($red = $rezultat->fetch_array()){
+                $myArray[] = $red;
+            }
+        }
+        return $myArray;
+     }
+
+     public static function deleteById(mysqli $conn){
+
+        $query = "DELETE FROM prijave WHERE id=$this->id";
+
+        return $conn->query($query);
+
+     }
+
+     public static function add(Prijava $prijava, mysqli $conn) {
+
+        $q = "INSERT INTO prijave(predmet,katedra,sala,datum) VALUES('$prijava->predmet', '$prijava->katedra', $prijava->'sala', '$prijava->datum')";
+        return $conn->query($q);
+     }
+
+     public function update( mysqli $conn) {
+
+        $q = "UPDATE prijave set (predmet='$this->predmet' , katedra='$this->katedra', sala='$this->sala',datum='$this->datum')";
+        return $conn->query($q);
+     }
+
+
 
 
 
